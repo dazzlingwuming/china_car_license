@@ -23,12 +23,12 @@ class Net(nn.Module):
             nn.Linear(4096, 4096),
             nn.ReLU(True),
             nn.Dropout(p=0.5),
-            nn.Linear(4096, 8*35)  # 8个字符，每个字符35个类别,
+            nn.Linear(4096, 8*67)  # 8个字符，每个字符35个类别,
         )
 
     def forward(self, img):
         x = self.vgg(img)
-        x = x.view(x.size(0), 8, 35)
+        x = x.view(x.size(0), 8, 67)
         return x
 
 if __name__ == "__main__":
@@ -38,4 +38,4 @@ if __name__ == "__main__":
     # 创建一个随机输入张量，模拟一张图片
     input_tensor = torch.randn(1, 3, 224, 224)  # batch_size=1, channels=3, height=224, width=224
     output = model(input_tensor)
-    print("Output shape:", output.shape)  # 应该是 (1, 8, 35)
+    print("Output shape:", output.shape)  # 应该是 (1, 8, 65)
