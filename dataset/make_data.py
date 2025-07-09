@@ -37,8 +37,13 @@ class licenseDataset(Dataset):
             if file.endswith('.jpg') or file.endswith('.png'):
                 #取出标签的字符串部分
                 label = file.split('_')[1].split(".")[0]
+                #如果标签长度为7，需要扩到8位，最后一位为0、
+                if len(label) == 7:
+                    label += '0'
+                elif len(label) != 8:
+                    raise ValueError(f"标签长度错误: {label}，应为8位。")
                 #将标签转换为数字以及tensor格式
-                label = [file,[self.label_list.index(char) for char in label if char in self.label_list]]
+                label = [file,[self.label_list.index(char) for char in label if char in self.label_list ]]
                 labels.append(label)
         return labels
 
@@ -73,8 +78,10 @@ def val_transform():
 
 
 if __name__ == "__main__":
-    label_list= ["京", "沪", "粤", "苏", "浙", "川", "鲁", "豫", "冀", "晋", "辽", "吉", "黑", "皖", "闽", "赣", "贵", "云", "陕", "甘", "青", "琼", "渝", "津", "蒙", "宁", "新", "藏", "港", "湘", "桂",
-                 "0", "1", "2", "3", "4", "5", "6","7", "8", "9","A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    label_list = ["京", "沪", "津", "渝", "冀", "晋", "蒙", "辽", "吉", "黑", "苏", "浙", "皖", "闽", "赣", "鲁", "豫",
+                  "鄂", "湘", "粤", "桂", "琼", "川", "贵", "云", "藏", "陕", "甘", "青", "宁", "新", "军", "使",
+                  "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                  "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V","W", "X", "Y", "Z"]
     transform = train_transform()  # 获取训练集的预处理方式
     data = licenseDataset(root=r"D:\github\china_car_license\make_license\plate_images\single_yellow",label_list=label_list, transform=transform)
     # for idx, item in enumerate(data):
