@@ -70,11 +70,11 @@ class LicensePlateGenerator(object):
 if __name__ == '__main__':
     plate_height = 72
     # 每个颜色的生成
-    blue_batch_size = 50
-    yellow_batch_size = 20
-    new_energy_batch_size = 20
+    blue_batch_size = 0
+    yellow_batch_size = 50
+    new_energy_batch_size = 0
     # 迭代次数
-    iter_times = 2
+    iter_times = 10
     # 保存文件夹名称
     file_path = os.path.join(os.getcwd(), 'plate_images')
     start_index = 0
